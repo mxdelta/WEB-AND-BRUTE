@@ -35,18 +35,23 @@ ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -fc 404,
 ffuf -u http://10.10.10.10/FUZZ/FUZ2Z -w /usr/share/wordlists/dirb/common.txt:FUZZ -w /usr/share/wordlists/common_extensions.txt:FUZ2Z
 
 # Стандартные wordlists в Kali Linux
-/usr/share/wordlists/dirb/common.txt
-/usr/share/wordlists/dirb/big.txt
-/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
-/usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
-/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-medium-directories.txt
-/usr/share/wordlists/metasploit/common_passwords.txt
 
-hashcat -m <hash_type> -a <attack_mode> <hash_file> <wordlist_or_mask>
-hashcat --example-hashes
-hashcat -m 0 -a 0 hashes.txt rockyou.txt
-hashcat -m 0 -a 3 hashes.txt ?u?l?l?l?l?l?l?l
-/home/whoami/tools/hashcat-7.1.2/hashcat.bin -a 0 -m 31300 clean_hashh.txt /usr/share/wordlists/rockyou.txt (hashcat для timeroasting)
-hydra -l root -P /usr/share/wordlists/common_passwords.txt ssh://192.168.1.100
-hydra -l admin -P passwords.txt 192.168.1.100 ssh -s 2222
-hydra -l admin -P passwords.txt 192.168.1.100 ssh -t 1 -w 30 -f (медленный режим)
+	/usr/share/wordlists/dirb/common.txt
+	/usr/share/wordlists/dirb/big.txt
+	/usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
+	/usr/share/wordlists/SecLists/Discovery/Web-Content/common.txt
+	/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-medium-directories.txt
+	/usr/share/wordlists/metasploit/common_passwords.txt
+# HASHCAT
+
+	hashcat -m <hash_type> -a <attack_mode> <hash_file> <wordlist_or_mask>
+	hashcat --example-hashes
+	hashcat -m 0 -a 0 hashes.txt rockyou.txt
+	hashcat -m 0 -a 3 hashes.txt ?u?l?l?l?l?l?l?l
+	/home/whoami/tools/hashcat-7.1.2/hashcat.bin -a 0 -m 31300 clean_hashh.txt /usr/share/wordlists/rockyou.txt (hashcat для timeroasting)
+
+# Hydra
+
+	hydra -l root -P /usr/share/wordlists/common_passwords.txt ssh://192.168.1.100
+	hydra -l admin -P passwords.txt 192.168.1.100 ssh -s 2222
+	hydra -l admin -P passwords.txt 192.168.1.100 ssh -t 1 -w 30 -f (медленный режим)
