@@ -42,6 +42,7 @@ ffuf -u http://10.10.10.10/FUZZ/FUZ2Z -w /usr/share/wordlists/dirb/common.txt:FU
 /usr/share/wordlists/SecLists/Discovery/Web-Content/raft-medium-directories.txt
 /usr/share/wordlists/metasploit/common_passwords.txt
 
+hashcat -m <hash_type> -a <attack_mode> <hash_file> <wordlist_or_mask>
 hashcat --example-hashes
 hashcat -m 0 -a 0 hashes.txt rockyou.txt
 hashcat -m 0 -a 3 hashes.txt ?u?l?l?l?l?l?l?l
