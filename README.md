@@ -17,9 +17,17 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -r
 gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 
 # Указать конкретные коды ответа
-gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -s 200,301,302
+	gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -s 200,301,302
 
-	#FFUF
+# Базовый поиск поддоменов (DNS режим):
+
+	gobuster dns -d inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+	gobuster dns -d inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -t 50 -r 8.8.8.8 -o subdomains_results.txt
+# Базовый поиск VHOST:
+	gobuster vhost -u http://inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+	gobuster vhost -u http://inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -t 30 --append-domain -o vhost_results.txt
+
+#FFUF
 
 ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -t 50 -c -e .php,.html,.txt,.js -o ffuf_scan.json -of json
 
@@ -33,6 +41,43 @@ ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -fc 404,
 
 # Перебор директорий и расширений
 ffuf -u http://10.10.10.10/FUZZ/FUZ2Z -w /usr/share/wordlists/dirb/common.txt:FUZZ -w /usr/share/wordlists/common_extensions.txt:FUZ2Z
+
+# * Trasfer DNS ZONE and DNS recon
+
+		nslookup -type=SRV _ldap._tcp.dc._msdcs.dgg.tgg.zazpbom.ru 	(домен dgg.tgg.zazpbom.ru - поиск контроллеров домена)
+		Общее перечисление SRV-записей с контроллера домена dc2.dgg.game.ru
+  		nslookup -type=SRV _ldap._tcp.dc._msdcs.game.ru			(game.ru) домен
+
+  		dig @10.10.11.5 freelancer.htb axfr		(dns-server   domain)
+		dig @<ip> <домен> NS
+  		Смотрим в DNS  в ptr записи:
+
+  		dnsrecon -r 192.168.0.0/16  -n 192.168.2.11 - (dns server) 	(Обратный обход (Reverse Lookup) диапазона IP-адресов для поиска PTR-записей)
+
+		dnsrecon -d bank.htb -a -n 192.168.2.37 -(dns server)	(Метод «прямого запроса»: Запрашивает у конкретного DNS-сервера полную копию его зоны для домена.)
+		1) Смотрим в DNS  в ptr записи: dnsrecon -r 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 (но поочереди)
+
+		sudo arp-scan --localnet 		(arp сканирование сети)
+
+		 nslookup
+		> server 10.10.10.248
+		Default server: 10.10.10.248
+		Address: 10.10.10.248#53
+		> svc_int.intelligence.htb
+		Server:         10.10.10.248
+		Address:        10.10.10.248#53
+*******************************************************
+		vim /etc/hosts/ ----> 10.129.203.6 inlanefreight.htb
+		subfinder -d inlanefreight.com -v
+		git clone https://github.com/TheRook/subbrute.git >> /dev/null 2>&1
+		cd subbrute
+		echo "ns1.inlanefreight.com" > ./resolvers.txt
+		./subbrute.py inlanefreight.com -s ./names.txt -r ./resolvers.txt
+
+*******************************************************
+		dnstool.py -u 'intelligence\Tiffany.Molina' -p NewIntelligenceCorpUser9876 			10.10.10.248 -a add -r web1 -d 10.10.14.58 -t A (создание ДНС записи в домене)
+
+
 
 # Стандартные wordlists в Kali Linux
 
