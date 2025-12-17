@@ -1,3 +1,6 @@
+# скан вебморд
+	 eyewitness -f domain_real.txt -d ILFREIGHT_subdomain_EyeWitness
+
 # WEB-AND-BRUTE
 Всегда проверяйте robots.txt, sitemap.xml и исходный код страницы перед началом перебора.
 
