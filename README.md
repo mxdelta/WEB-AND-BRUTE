@@ -32,6 +32,9 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 
 # FFUF
 	Поиск каталогов
+	
+	ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/FUZZ
+	
 	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt:FUZZ -ic
 	
 	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -ic -t 50 -c -e .php,.html,.txt,.js -o ffuf_scan.json -of json
