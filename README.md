@@ -47,7 +47,9 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 	
 	Поиск виртуальных хостов
 	ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
-	
+
+	Параметрическое фаззинг-тестирование - GET
+	ffuf -w /opt/useful/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u http://admin.academy.htb:PORT/admin/admin.php?FUZZ=key -fs xxx
 
 # Скрыть определенные размеры ответов
 ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -fs 0 
