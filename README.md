@@ -35,7 +35,7 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 	Поиск виртуальных хостов
 	ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
 	Поиск директорий
-	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -t 50 -c -e .php,.html,.txt,.js -o ffuf_scan.json -of json
+	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -ic -t 50 -c -e .php,.html,.txt,.js -o ffuf_scan.json -of json
 
 # Скрыть определенные размеры ответов
 ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -fs 0 
