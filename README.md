@@ -38,6 +38,10 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt:FUZZ -ic
 	
 	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt -ic -t 50 -c -e .php,.html,.txt,.js -o ffuf_scan.json -of json
+
+	Фазинг расширений
+
+	ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/web-extensions.txt:FUZZ -u http://SERVER_IP:PORT/blog/indexFUZZ
 	
 	Поиск файлов
 	ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/blog/FUZZ.php
