@@ -30,8 +30,9 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 	gobuster vhost -u http://inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 	gobuster vhost -u http://inlanefreight.htb -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -t 30 --append-domain -o vhost_results.txt
 
-#FFUF
-
+# FFUF
+	Поиск каталогов
+	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt:FUZZ -ic
 	Поиск виртуальных хостов
 	ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
 	Поиск директорий
