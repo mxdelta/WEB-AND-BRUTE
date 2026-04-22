@@ -36,6 +36,9 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 
 	Поиск файлов
 	ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/blog/FUZZ.php
+	
+	Рекурсивное сканирование с поиском файлов и глубиной 1
+	ffuf -w /usr/share/wordlists/SecLists/Discovery/Web-Content/DirBuster-2007_directory-list-2.3-small.txt:FUZZ -u http://154.57.164.67:31777/FUZZ -ic -recursion -recursion-depth 1 -e .php
 
 	Поиск виртуальных хостов
 	ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
