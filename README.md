@@ -33,6 +33,10 @@ gobuster dir -u http://10.10.10.10 -w /usr/share/wordlists/dirb/common.txt -q
 # FFUF
 	Поиск каталогов
 	ffuf -u http://10.10.10.10/FUZZ -w /usr/share/wordlists/dirb/common.txt:FUZZ -ic
+
+	Поиск файлов
+	ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://SERVER_IP:PORT/blog/FUZZ.php
+
 	Поиск виртуальных хостов
 	ffuf -w namelist.txt:FUZZ -u http://10.129.203.101/ -H 'Host:FUZZ.inlanefreight.local' -fs 15157
 	Поиск директорий
